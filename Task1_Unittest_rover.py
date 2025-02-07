@@ -32,12 +32,26 @@ class test_string(unittest.TestCase):
 
     # You can continue writing your test cases here based on the assignment description
 
+    def test_enrove_upper(self):
+        self.assertEqual(self.rv.enrove('B'), 'BOB')
 
+    def test_enrove_special(self):
+        self.assertEqual(self.rv.enrove('&'), '&')
 
+    def test_enrove_numbers(self):
+        self.assertEqual(self.rv.enrove('3'), '3')
 
+    def test_enrove_all_letters(self):
+        self.assertEqual(self.rv.enrove('abcö'), 'abobcocö')
 
+    def test_enrove_empty_string(self):
+        self.assertEqual(self.rv.enrove(''), '')
 
+    def test_enrove_multiple_chars(self):
+        self.assertEqual(self.rv.enrove('Hello!'), 'HOHelollolo!')
 
+    def test_enrove_null(self):
+        pass
 
 if __name__ == '__main__':
     print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")
