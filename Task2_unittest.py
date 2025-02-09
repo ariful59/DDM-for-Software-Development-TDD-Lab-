@@ -1,33 +1,31 @@
 '''
     Student shall write their names here
-        1. Student 1
-        2. Student 2
+        1. Md Ariful Amin
+        2. Sakshi Khanduri
 '''
 
 import unittest
 from Task2 import TextProcessor
 
-class TestTextProcessor(unittest.TestCase):
+class LowerCaseChecker(unittest.TestCase):
     tp = None
     def setUp(self):
-        """
-        You can start with the sample text below but please feel free to add more text to cover all scenarios. 
-        """
         self.sample_text = "Hello! This is a sample text 1. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com."
-        global tp 
-        tp = TextProcessor(self.sample_text)
+        self.tp = TextProcessor(self.sample_text)
 
-
-
-    """
-        One example case test case is provided below but the implmentation of the function is missing to get you
-        going with the TDD. Please note the test case will fail without implementation of the function in task2.py. 
-        You will see an assertion error AssertionError: None != 'hello! this is a sample text 1. contact [130 chars]com.'. 
-        The error will go away once you implement the function.
-    """
-    #TC for User story no 1 - This will fail!
     def test_convert_to_lowercase(self):
-        self.assertEqual(tp.convert_to_lowercase(), self.sample_text.lower())
+        self.assertEqual(self.tp.convert_to_lowercase(), self.sample_text.lower())
+
+
+class EmailAddressExtractor(unittest.TestCase):
+    tp = None
+    def setUp(self):
+        self.sample_text = "Hello! This is a sample text 1. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com."
+        self.tp = TextProcessor(self.sample_text)
+
+    def test_email_address_extractor (self):
+        expected_emails = ["user@example.com"]
+        self.assertEqual(self.tp.extract_email_addresses(), expected_emails)
 
 
 if __name__ == '__main__':

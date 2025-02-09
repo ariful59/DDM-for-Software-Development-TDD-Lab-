@@ -1,7 +1,7 @@
 '''
     Student shall write their names here
-        1. Student 1
-        2. Student 2
+        1. Md Ariful Amin
+        2. Sakshi Khanduri
 '''
 
 
@@ -51,7 +51,30 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove('Hello!'), 'HOHelollolo!')
 
     def test_enrove_null(self):
-        pass
+        self.assertEqual(self.rv.enrove(None), None)
+
+
+    def test_derove_small(self):
+        self.assertEqual(self.rv.derove('bob'), 'b')
+
+    def test_derove_upper(self):
+        self.assertEqual(self.rv.derove('BOB'), 'B')
+
+    def test_derove_special(self):
+        self.assertEqual(self.rv.derove('&'), '&')
+
+    def test_derove_numbers(self):
+        self.assertEqual(self.rv.derove('3'), '3')
+
+    def test_derove_all_letters(self):
+        self.assertEqual(self.rv.derove('HOHelollolo!'),'Hello!')
+
+    def test_derove_null(self):
+        self.assertEqual(self.rv.derove(None), None)
+
+    @unittest.skip("random skipping")
+    def test_random(self):
+        self.assertEqual(self.rv.random(), None)
 
 if __name__ == '__main__':
     print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")

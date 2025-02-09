@@ -3,6 +3,10 @@ class rovar(object):
  
     _LOWER_CONSTANTS = "bcdfhjklmnpqrstvwxz"
     _UPPER_CONSTANTS = "BCFGHJKLMNPQRSTVWXZ"
+    VOWEL =  'AEIOU'
+    #ADDED g AND D
+    _MODIFIED_LOWER_CONSTANTS = "bcdfghjklmnpqrstvwxz"
+    _MODIFIED_UPPER_CONSTANTS = "BCDFGHJKLMNPQRSTVWXZ"
  
     def enrove(self, normal: str)-> str:
         """Encode the string in rovarspraket.
@@ -16,9 +20,9 @@ class rovar(object):
        
         builder = ""
         for c in normal:
-            if c in self._LOWER_CONSTANTS:
+            if c in self._MODIFIED_LOWER_CONSTANTS:
                 builder += c+'o'+c
-            elif c in self._UPPER_CONSTANTS:
+            elif c in self._MODIFIED_UPPER_CONSTANTS:
                 builder += c+'O'+c
             else:
                 builder += c
@@ -36,11 +40,11 @@ class rovar(object):
         if rov is None:
             return None
        
-        for c in self._LOWER_CONSTANTS:
+        for c in self._MODIFIED_LOWER_CONSTANTS:
             find = c+'o'+c
             rov = rov.replace(find, c)
        
-        for c in self._UPPER_CONSTANTS:
+        for c in self._MODIFIED_UPPER_CONSTANTS:
             find = c+'O'+c
             rov = rov.replace(find, c)
  
