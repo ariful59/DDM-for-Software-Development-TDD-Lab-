@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from re import match
+from math import ceil
 
 
 class TextProcessor:
@@ -21,6 +21,7 @@ class TextProcessor:
     def count_unique_hashtag_words(self):
           hashtag_words = r'#[\w]+'
           hashtags = re.findall(hashtag_words, self.text)
+          hashtags = [hashtag.lower() for hashtag in hashtags]
           return Counter(hashtags)
 
     '''  4. Identify and list all URLs mentioned in the text.'''
@@ -31,32 +32,29 @@ class TextProcessor:
 
     '''   5. Calculate the average word length in the document.'''
     def average_word_length(self):
-        word_pattern = r'\b\w(?:-\w+)\b'
-        words = re.findall(word_pattern, self.text)
+        words = self.text.split()
         total_length = sum(len(word) for word in words)
-        return total_length / len(words) if len(words) > 0 else 0
+        return ceil(total_length / len(words) if len(words) > 0 else 0)
 
     '''    6. Determine the top 3 most frequent words in the text.'''
     def top_three_most_frequent_words(self):
-        word_pattern = r'\b\w\w+\b'
-        words = re.findall(word_pattern, self.text)
+        text = self.remove_special_characters()
+        words = text.lower().split()
         top_three_words = Counter(words).most_common(3)
-        return top_three_words
+        return Counter(dict(top_three_words))
 
     '''   7. Find the longest word in the text.'''
     def longest_word(self):
-        word_pattern = r'\b\w\w+'
+        word_pattern = r'\b\w+\b'
         words = re.findall(word_pattern, self.text)
         longest_word = max(words, key=len)
-        return longest_word
+        return longest_word if len(words) > 0 else ''
 
     '''    8. Identify the sentences in the document that contain the word "Python.'''
-    def identify_sentences(self, keyword = 'Python'):
+    def identify_specific_sentences(self, keyword = 'Python'):
         word_pattern = rf'([^.?!]*\b{keyword}\b[^.?!]*[.?!])'
         sentences = re.findall(word_pattern, self.text)
-        list = []
-        for sentence in sentences:
-            list.append(sentence.strip())
+        list = [sentences.strip() for sentences in sentences]
         return list
 
     '''    9. Remove all punctuation and special characters from the text.'''
