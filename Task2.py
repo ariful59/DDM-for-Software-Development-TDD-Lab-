@@ -15,7 +15,7 @@ class TextProcessor:
     def extract_email_addresses(self):
         email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
         emails = re.findall(email_pattern, self.text)
-        return emails
+        return emails if emails else []
 
     '''  3. Find and count all unique hashtags (words or phrases starting with #) used in the document.'''
     def count_unique_hashtag_words(self):
@@ -66,7 +66,11 @@ class TextProcessor:
 
     def replace_digits(self):
         number_map = {
-            "1": "one", "2": "two", "3": "three", "4": "four", "5": "five",
+            "0":"zero", "1": "one", "2": "two", "3": "three", "4": "four", "5": "five",
             "6": "six", "7": "seven", "8": "eight", "9": "nine", "10": "ten"
         }
-        return re.sub(r'\d|10+', lambda m: number_map[m.group()], self.text)
+        return re.sub(r'(10|[0-9])', lambda m: number_map[m.group()], self.text)
+
+# email = "user@@gmail..com"
+# tp = TextProcessor(email)
+# print(tp.extract_email_addresses())

@@ -12,12 +12,18 @@ from Task2 import TextProcessor
 class TestTextProcessor(unittest.TestCase):
     tp = None
     def setUp(self):
-        self.sample_text = ("Hello! This is a sample text 1. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com."
-                            "The top 3 programming languages are: 1. Python 2. Java 3. C++.")
+        self.sample_text = ("Hello! This is a sample text 1. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com.")
         self.tp = TextProcessor(self.sample_text)
 
     def test_convert_to_lowercase(self):
         self.assertEqual(self.tp.convert_to_lowercase(), self.sample_text.lower())
+
+    def test_convert_to_lowercase_with_mix_values(self):
+        sample_text = ("PyThOn iS AwEsOmE")
+        tp = TextProcessor(sample_text)
+        print(tp.convert_to_lowercase())
+        self.assertEqual(tp.convert_to_lowercase(), sample_text.lower())
+
 
     def test_convert_to_lowercase_with_different_text(self):
         text = "Python is great, Python is fun, and Python is everywhere."
@@ -28,6 +34,12 @@ class TestTextProcessor(unittest.TestCase):
     def test_email_address_extractor (self):
         expected_emails = ["user@example.com"]
         self.assertEqual(self.tp.extract_email_addresses(), expected_emails)
+
+    def test_wrong_email(self):
+        email = "user@@gmail..com"
+        tp = TextProcessor(email)
+        print(tp.extract_email_addresses())
+        self.assertEqual(tp.extract_email_addresses(),[])
 
     def test_count_unique_hashtag_words(self):
         expected_unique_hashtags = Counter({"#python", "#nlp"})
@@ -90,6 +102,19 @@ class TestTextProcessor(unittest.TestCase):
         tp = TextProcessor(text)
         expected = "I have two apples and three bananasthreeonetwo"
         self.assertEqual(tp.replace_digits(), expected)
+
+    def test_edge_case_with_10(self):
+        text= "This comes under top 10 people. And I have 1,0 points."
+        tp = TextProcessor(text)
+        expected = "This comes under top ten people. And I have one,zero points."
+        self.assertEqual(tp.replace_digits(),expected)
+    def test_no_numbers(self):
+        text = "This is just no numbers"
+        tp = TextProcessor(text)
+        expected = "This is just no numbers"
+        self.assertEqual(tp.replace_digits(),expected)
+
+
 
 
 
