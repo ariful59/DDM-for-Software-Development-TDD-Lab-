@@ -17,6 +17,7 @@ class rovar(object):
         """
         if normal is None:
             return None
+
        
         builder = ""
         for c in normal:

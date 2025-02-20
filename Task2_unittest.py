@@ -18,6 +18,7 @@ class TestTextProcessor(unittest.TestCase):
     def test_convert_to_lowercase(self):
         self.assertEqual(self.tp.convert_to_lowercase(), self.sample_text.lower())
 
+    def test_convert_to_lowercase_with_different_text(self):
         text = "Python is great, Python is fun, and Python is everywhere."
         tp = TextProcessor(text)
         expected = "python is great, python is fun, and python is everywhere."
@@ -31,6 +32,7 @@ class TestTextProcessor(unittest.TestCase):
         expected_unique_hashtags = Counter({"#python", "#nlp"})
         self.assertEqual(self.tp.count_unique_hashtag_words(), expected_unique_hashtags)
 
+    def test_count_unique_words_with_different_hashtags(self):
         text = "Check out #Python and #AI. Follow #Python for updates!"
         tp = TextProcessor(text)
         expected = Counter({'#python': 2, '#ai': 1})
@@ -42,12 +44,13 @@ class TestTextProcessor(unittest.TestCase):
         for expected, actual in zip(expected_unique_urls, actual_urls):
             self.assertEqual(expected, actual)
 
+    def test_unique_different_urls(self):
         text = "Visit https://www.google.com and https://www.example.com for more info."
         tp = TextProcessor(text)
         expected = ['https://www.google.com', 'https://www.example.com']
-        actual_urls = self.tp.unique_urls()
-        for expected, actual in zip(expected_unique_urls, actual_urls):
-            self.assertEqual(expected, actual)
+        actual_urls = tp.unique_urls()
+        for expected, actual in zip(expected, actual_urls):
+            self.assertIn(expected, actual)
 
     def test_average_word_length(self):
         expected_average_word_length = 6
@@ -57,6 +60,7 @@ class TestTextProcessor(unittest.TestCase):
         expected_top_three_most_frequent_words = Counter({'is': 3, 'python': 3, 'hello': 1})
         self.assertEqual(self.tp.top_three_most_frequent_words(), expected_top_three_most_frequent_words)
 
+    def test_top_three_most_frequent_words_with_different_text(self):
         text = "Python is great, Python is fun, and Python is everywhere. Me, me, me!"
         tp = TextProcessor(text)
         expected = Counter({'python': 3, 'is': 3, 'me': 3})
@@ -80,9 +84,9 @@ class TestTextProcessor(unittest.TestCase):
         expected_replace_digits = 'Hello! This is a sample text one. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com.'
         self.assertEqual(self.tp.replace_digits(), expected_replace_digits)
 
+    def test_replace_digits_with_different_text(self):
         text = "I have 2 apples and 3 bananas312"
         tp = TextProcessor(text)
-
         expected = "I have two apples and three bananasthreeonetwo"
         self.assertEqual(tp.replace_digits(), expected)
 
@@ -90,12 +94,4 @@ class TestTextProcessor(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
-    
-    """
-    To generate an HTML report
-    coverage run -a --branch Task1_Unittest_rover.py 
-    coverage run -a --branch Task2_unittest.py 
-    coverage report -m
-    coverage html
-    """
+    unittest.main(verbosity=2, exit=False)

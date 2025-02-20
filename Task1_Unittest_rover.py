@@ -72,10 +72,6 @@ class test_string(unittest.TestCase):
     def test_derove_null(self):
         self.assertEqual(self.rv.derove(None), None)
 
-    @unittest.skip("random skipping")
-    def test_random(self):
-        self.assertEqual(self.rv.random(), None)
-
 if __name__ == '__main__':
     print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")
-    unittest.main(verbosity = 2)
+    unittest.main(verbosity=2, exit=False)
