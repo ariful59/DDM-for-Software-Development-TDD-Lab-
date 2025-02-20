@@ -20,15 +20,25 @@ class rovar(object):
 
        
         builder = ""
+        # for c in normal:
+        #     if c in self._MODIFIED_LOWER_CONSTANTS:
+        #         builder += c+'o'+c
+        #     elif c in self._MODIFIED_UPPER_CONSTANTS:
+        #         builder += c+'O'+c
+        #     else:
+        #         builder += c
+        # builder = []
         for c in normal:
             if c in self._MODIFIED_LOWER_CONSTANTS:
-                builder += c+'o'+c
+                builder.append(c + 'o' + c)
             elif c in self._MODIFIED_UPPER_CONSTANTS:
-                builder += c+'O'+c
+                builder.append(c + 'O' + c)
             else:
-                builder += c
+                builder.append(c)  # Keep vowels, numbers, and special characters unchanged
+
+        return ''.join(builder)
        
-        return builder
+        # return builder
  
     def derove(self, rov:str)->str:
         """ 
@@ -41,12 +51,39 @@ class rovar(object):
         if rov is None:
             return None
        
-        for c in self._MODIFIED_LOWER_CONSTANTS:
-            find = c+'o'+c
-            rov = rov.replace(find, c)
-       
-        for c in self._MODIFIED_UPPER_CONSTANTS:
-            find = c+'O'+c
-            rov = rov.replace(find, c)
+        # for c in self._MODIFIED_LOWER_CONSTANTS:
+        #     find = c+'o'+c
+        #     rov = rov.replace(find, c)
+        #
+        # for c in self._MODIFIED_UPPER_CONSTANTS:
+        #     find = c+'O'+c
+        #     rov = rov.replace(find, c)
+        # for double consonant cases
+        builder = []
+        i = 0
+        while i < len(rov):
+            c = rov[i]
+            # Check for consonant duplication pattern
+            if (
+                    c in self._MODIFIED_LOWER_CONSTANTS and
+                    i + 2 < len(rov) and
+                    rov[i + 1] == 'o' and
+                    rov[i + 2] == c
+            ):
+                builder.append(c)
+                i += 3  # Skip "coc"
+            elif (
+                    c in self._MODIFIED_UPPER_CONSTANTS and
+                    i + 2 < len(rov) and
+                    rov[i + 1] == 'O' and
+                    rov[i + 2] == c
+            ):
+                builder.append(c)
+                i += 3  # Skip "COC"
+            else:
+                builder.append(c)
+                i += 1
+
+        return ''.join(builder)
  
-        return rov
+        # return rov

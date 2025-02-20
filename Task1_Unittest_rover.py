@@ -25,12 +25,21 @@ class test_string(unittest.TestCase):
         '''
         cls.rv= rovar() 
 
+    # def test_empty_string(self):
+    #     self.assertEqual(self.rv.enrove(""),"")
 
+    def test_single_vowel(self):
+        self.assertEqual(self.enrove("a"),"a")
+
+    def test_single_consonant(self):
+        self.assertEqual(self.enrove("c"),"coc")
+    def test_double_consonant(self):
+        self.assertEqual(self.enrove('cc'),'coccoc')
+    def test_string_with_numbers(self):
+        self.assertEqual(self.enrove("h3llo"),"ho3lololo")
     # Example test case to check lower case rover
     def test_enrove_small(self):
         self.assertEqual(self.rv.enrove('b'), 'bob')
-
-    # You can continue writing your test cases here based on the assignment description
 
     def test_enrove_upper(self):
         self.assertEqual(self.rv.enrove('B'), 'BOB')
@@ -54,6 +63,18 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove(None), None)
 
 
+    def test_single_vowel(self):
+        self.assertEqual(self.rv.derove("a"),"a")
+
+    def test_single_consonant(self):
+        self.assertEqual(self.rv.derove("coc"),"c")
+
+    def test_double_consonant(self):
+        self.assertEqual(self.rv.derove('coccoc'),'cc')
+
+    def test_string_with_numbers(self):
+        self.assertEqual(self.rv.derove("HoH3lololo"),"H3lolo")
+
     def test_derove_small(self):
         self.assertEqual(self.rv.derove('bob'), 'b')
 
@@ -67,7 +88,7 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.derove('3'), '3')
 
     def test_derove_all_letters(self):
-        self.assertEqual(self.rv.derove('HOHelollolo!'),'Hello!')
+        self.assertEqual(self.rv.derove('HoHelollolo!'),'Hello!')
 
     def test_derove_null(self):
         self.assertEqual(self.rv.derove(None), None)
