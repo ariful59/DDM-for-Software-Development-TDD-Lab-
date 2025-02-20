@@ -19,7 +19,7 @@ class rovar(object):
             return None
 
        
-        builder = ""
+        # builder = ""
         # for c in normal:
         #     if c in self._MODIFIED_LOWER_CONSTANTS:
         #         builder += c+'o'+c
@@ -27,18 +27,16 @@ class rovar(object):
         #         builder += c+'O'+c
         #     else:
         #         builder += c
-        # builder = []
+        builder = []
         for c in normal:
-            if c in self._MODIFIED_LOWER_CONSTANTS:
+            if c in self._MODIFIED_LOWER_CONSTANTS or c in self._MODIFIED_UPPER_CONSTANTS:
                 builder.append(c + 'o' + c)
-            elif c in self._MODIFIED_UPPER_CONSTANTS:
-                builder.append(c + 'O' + c)
             else:
                 builder.append(c)  # Keep vowels, numbers, and special characters unchanged
 
         return ''.join(builder)
        
-        # return builder
+        return builder
  
     def derove(self, rov:str)->str:
         """ 
@@ -50,14 +48,16 @@ class rovar(object):
         """
         if rov is None:
             return None
-       
+
+        # find = None
         # for c in self._MODIFIED_LOWER_CONSTANTS:
-        #     find = c+'o'+c
-        #     rov = rov.replace(find, c)
+        #     int
+        #     if find == (c+'O'+c) or (c+'O'+c):
+        #         rov = rov.replace(find, c)
         #
         # for c in self._MODIFIED_UPPER_CONSTANTS:
-        #     find = c+'O'+c
-        #     rov = rov.replace(find, c)
+        #     if find == (c+'O'+c) or (c+'O'+c):
+        #         rov = rov.replace(find, c)
         # for double consonant cases
         builder = []
         i = 0
@@ -67,15 +67,17 @@ class rovar(object):
             if (
                     c in self._MODIFIED_LOWER_CONSTANTS and
                     i + 2 < len(rov) and
-                    rov[i + 1] == 'o' and
+                    (rov[i + 1] == 'o' or
+                    rov[i + 1] == 'O') and
                     rov[i + 2] == c
             ):
                 builder.append(c)
-                i += 3  # Skip "coc"
+                i += 3
             elif (
                     c in self._MODIFIED_UPPER_CONSTANTS and
                     i + 2 < len(rov) and
-                    rov[i + 1] == 'O' and
+                    (rov[i + 1] == 'O' or
+                    rov[i + 1] == 'o') and
                     rov[i + 2] == c
             ):
                 builder.append(c)
@@ -83,7 +85,6 @@ class rovar(object):
             else:
                 builder.append(c)
                 i += 1
-
         return ''.join(builder)
  
-        # return rov
+        #return rov

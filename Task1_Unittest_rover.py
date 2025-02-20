@@ -23,26 +23,25 @@ class test_string(unittest.TestCase):
         '''
             Set up shared resources = Class instance to access rover class methods
         '''
-        cls.rv= rovar() 
-
-    # def test_empty_string(self):
-    #     self.assertEqual(self.rv.enrove(""),"")
+        cls.rv= rovar()
 
     def test_single_vowel(self):
-        self.assertEqual(self.enrove("a"),"a")
+        self.assertEqual(self.rv.enrove('a'),"a")
 
     def test_single_consonant(self):
-        self.assertEqual(self.enrove("c"),"coc")
+        self.assertEqual(self.rv.enrove("c"),"coc")
+
     def test_double_consonant(self):
-        self.assertEqual(self.enrove('cc'),'coccoc')
+        self.assertEqual(self.rv.enrove('cc'),'coccoc')
+
     def test_string_with_numbers(self):
-        self.assertEqual(self.enrove("h3llo"),"ho3lololo")
-    # Example test case to check lower case rover
+        self.assertEqual(self.rv.enrove("h3llo"),"ho3lololo")
+
     def test_enrove_small(self):
         self.assertEqual(self.rv.enrove('b'), 'bob')
 
     def test_enrove_upper(self):
-        self.assertEqual(self.rv.enrove('B'), 'BOB')
+        self.assertEqual(self.rv.enrove('B'), 'BoB')
 
     def test_enrove_special(self):
         self.assertEqual(self.rv.enrove('&'), '&')
@@ -57,7 +56,7 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove(''), '')
 
     def test_enrove_multiple_chars(self):
-        self.assertEqual(self.rv.enrove('Hello!'), 'HOHelollolo!')
+        self.assertEqual(self.rv.enrove('Hello!'), 'HoHelollolo!')
 
     def test_enrove_null(self):
         self.assertEqual(self.rv.enrove(None), None)
