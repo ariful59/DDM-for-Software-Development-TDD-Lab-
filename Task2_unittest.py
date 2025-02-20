@@ -12,7 +12,8 @@ from Task2 import TextProcessor
 class TestTextProcessor(unittest.TestCase):
     tp = None
     def setUp(self):
-        self.sample_text = "Hello! This is a sample text 1. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com."
+        self.sample_text = ("Hello! This is a sample text 1. Contact me at user@example.com. Python is awesome. The Python programming language is widely used. #Python #NLP Check out https://example.com."
+                            "The top 3 programming languages are: 1. Python 2. Java 3. C++.")
         self.tp = TextProcessor(self.sample_text)
 
     def test_convert_to_lowercase(self):

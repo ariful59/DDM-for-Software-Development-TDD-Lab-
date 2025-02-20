@@ -35,7 +35,10 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove('cc'),'coccoc')
 
     def test_string_with_numbers(self):
-        self.assertEqual(self.rv.enrove("h3llo"),"ho3lololo")
+        self.assertEqual(self.rv.enrove("h3llo"),"hoh3lollolo")
+
+    def test_mix_o_case(self):
+        self.assertEqual(self.rv.enrove("HOh"),"HoHOhoh")
 
     def test_enrove_small(self):
         self.assertEqual(self.rv.enrove('b'), 'bob')
@@ -62,17 +65,17 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove(None), None)
 
 
-    def test_single_vowel(self):
+    def test_derove_single_vowel(self):
         self.assertEqual(self.rv.derove("a"),"a")
 
-    def test_single_consonant(self):
+    def test_derove_single_consonant(self):
         self.assertEqual(self.rv.derove("coc"),"c")
 
-    def test_double_consonant(self):
+    def test_derove_double_consonant(self):
         self.assertEqual(self.rv.derove('coccoc'),'cc')
 
-    def test_string_with_numbers(self):
-        self.assertEqual(self.rv.derove("HoH3lololo"),"H3lolo")
+    def test_derove_string_with_numbers(self):
+        self.assertEqual(self.rv.derove("HoH3lollolo"),"H3llo")
 
     def test_derove_small(self):
         self.assertEqual(self.rv.derove('bob'), 'b')
@@ -92,6 +95,9 @@ class test_string(unittest.TestCase):
     def test_derove_null(self):
         self.assertEqual(self.rv.derove(None), None)
 
-if __name__ == '__main__':
-    print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")
-    unittest.main(verbosity=2, exit=False)
+    def test_derove_mix_o_case(self):
+        self.assertEqual(self.rv.derove("HoHOhoh"),"HOh")
+
+# if __name__ == '__main__':
+#     print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")
+#     unittest.main(verbosity=2, exit=False)

@@ -3,7 +3,7 @@ class rovar(object):
  
     _LOWER_CONSTANTS = "bcdfhjklmnpqrstvwxz"
     _UPPER_CONSTANTS = "BCFGHJKLMNPQRSTVWXZ"
-    VOWEL =  'AEIOU'
+    VOWEL =  'AEIOUaeiou'
     #ADDED g AND D
     _MODIFIED_LOWER_CONSTANTS = "bcdfghjklmnpqrstvwxz"
     _MODIFIED_UPPER_CONSTANTS = "BCDFGHJKLMNPQRSTVWXZ"
