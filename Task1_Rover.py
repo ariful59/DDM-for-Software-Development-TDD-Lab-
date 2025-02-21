@@ -1,3 +1,5 @@
+import re
+
 
 class rovar(object):
  
@@ -18,24 +20,12 @@ class rovar(object):
         if normal is None:
             return None
 
-       
-        # builder = ""
-        # for c in normal:
-        #     if c in self._MODIFIED_LOWER_CONSTANTS:
-        #         builder += c+'o'+c
-        #     elif c in self._MODIFIED_UPPER_CONSTANTS:
-        #         builder += c+'O'+c
-        #     else:
-        #         builder += c
-        builder = []
+        builder = ""
         for c in normal:
             if c in self._MODIFIED_LOWER_CONSTANTS or c in self._MODIFIED_UPPER_CONSTANTS:
-                builder.append(c + 'o' + c)
+                builder += c+'o'+c
             else:
-                builder.append(c)  # Keep vowels, numbers, and special characters unchanged
-
-        return ''.join(builder)
-       
+                builder += c
         return builder
  
     def derove(self, rov:str)->str:
@@ -49,42 +39,8 @@ class rovar(object):
         if rov is None:
             return None
 
-        # find = None
-        # for c in self._MODIFIED_LOWER_CONSTANTS:
-        #     int
-        #     if find == (c+'O'+c) or (c+'O'+c):
-        #         rov = rov.replace(find, c)
-        #
-        # for c in self._MODIFIED_UPPER_CONSTANTS:
-        #     if find == (c+'O'+c) or (c+'O'+c):
-        #         rov = rov.replace(find, c)
-        # for double consonant cases
-        builder = []
-        i = 0
-        while i < len(rov):
-            c = rov[i]
-            # Check for consonant duplication pattern
-            if (
-                    c in self._MODIFIED_LOWER_CONSTANTS and
-                    i + 2 < len(rov) and
-                    (rov[i + 1] == 'o' or
-                    rov[i + 1] == 'O') and
-                    rov[i + 2] == c
-            ):
-                builder.append(c)
-                i += 3
-            elif (
-                    c in self._MODIFIED_UPPER_CONSTANTS and
-                    i + 2 < len(rov) and
-                    (rov[i + 1] == 'O' or
-                    rov[i + 1] == 'o') and
-                    rov[i + 2] == c
-            ):
-                builder.append(c)
-                i += 3  # Skip "COC"
-            else:
-                builder.append(c)
-                i += 1
-        return ''.join(builder)
- 
-        #return rov
+        for c in self._LOWER_CONSTANTS + self._UPPER_CONSTANTS:
+            pattern = re.compile(re.escape(c) + r'[oO]' + re.escape(c))  # Matches c + 'o' or 'O' + c
+            rov = pattern.sub(c, rov)
+
+        return rov

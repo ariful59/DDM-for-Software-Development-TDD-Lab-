@@ -20,9 +20,6 @@ class test_string(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        '''
-            Set up shared resources = Class instance to access rover class methods
-        '''
         cls.rv= rovar()
 
     def test_single_vowel(self):
@@ -32,7 +29,16 @@ class test_string(unittest.TestCase):
         self.assertEqual(self.rv.enrove("c"),"coc")
 
     def test_double_consonant(self):
-        self.assertEqual(self.rv.enrove('cc'),'coccoc')
+        self.assertEqual(self.rv.enrove('bcdfghj'),'bobcocdodfofgoghohjoj')
+
+    def test_double_consonant1(self):
+        self.assertEqual(self.rv.enrove('klmnpqst'),'koklolmomnonpopqoqsostot')
+
+    def test_double_consonant2(self):
+        self.assertEqual(self.rv.enrove('vwxz'),'vovwowxoxzoz')
+
+    def test_double_vowel(self):
+        self.assertEqual(self.rv.enrove('aeiouyäö'),'aeiouyäö')
 
     def test_string_with_numbers(self):
         self.assertEqual(self.rv.enrove("h3llo"),"hoh3lollolo")
@@ -64,6 +70,8 @@ class test_string(unittest.TestCase):
     def test_enrove_null(self):
         self.assertEqual(self.rv.enrove(None), None)
 
+    def test_enrove_empty(self):
+        self.assertEqual(self.rv.enrove(''), '')
 
     def test_derove_single_vowel(self):
         self.assertEqual(self.rv.derove("a"),"a")
@@ -98,6 +106,6 @@ class test_string(unittest.TestCase):
     def test_derove_mix_o_case(self):
         self.assertEqual(self.rv.derove("HoHOhoh"),"HOh")
 
-# if __name__ == '__main__':
-#     print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")
-#     unittest.main(verbosity=2, exit=False)
+if __name__ == '__main__':
+    print("***********START OF All TEST CASES RESULTS SHOWN BELOW**************")
+    unittest.main(verbosity=2, exit=False)
